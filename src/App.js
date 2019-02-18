@@ -1,43 +1,35 @@
 import React, { Component } from "react";
 import "styles/App.scss";
+
+import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-// import axios from "axios";
+import DenseAppBar from "Components/AppBar";
 
-import { fetcherAPI, query } from "actions/index";
+import { fetcherAPI } from "actions/index";
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
-
-  handleChange = e => {
-    e.preventDefault();
-
-    let inputVal = e.target.elements.textinpt.value.trim();
-
-    if (inputVal !== "") {
-      e.target.elements.textinpt.value = "";
-    }
-
-    this.props.query(inputVal);
-    console.log(inputVal);
-  };
+  componentDidMount() {}
   render() {
+    const { fetcherAPI } = this.props;
     return (
       <div className="App">
+        <DenseAppBar />
         Hello
-        <button type="submit" onClick={this.props.fetcherAPI}>
+        <button type="submit" onClick={fetcherAPI}>
           Hit Me!
         </button>
-        <form onSubmit={this.handleChange}>
-          <input type="text" name="textinpt" />
-          <button type="submit">Submit</button>
-        </form>
       </div>
     );
   }
 }
+
+App.propTypes = {
+  fetcherAPI: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => {
   const { receiveData, txtQuery } = state;
@@ -50,8 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetcherAPI,
-      query
+      fetcherAPI
     },
     dispatch
   );

@@ -5,10 +5,10 @@ export const RECIEVE_DATA = "RECIEVE_DATA";
 export const FETCH = "FETCH";
 export const QUERY = "QUERY";
 
-export const query = text => ({
-  type: QUERY,
-  text
-});
+// export const query = text => ({
+//   type: QUERY,
+//   text
+// });
 
 export const fetcherAPI = () => {
   const settings = {
@@ -38,5 +38,5 @@ export const errHandler = err => ({
 
 export const receiveData = value => ({
   type: RECIEVE_DATA,
-  dataPayload: value
+  dataPayload: value.data.results
 });
