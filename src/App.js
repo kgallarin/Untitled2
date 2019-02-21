@@ -13,8 +13,23 @@ class App extends Component {
     super(props);
   }
   componentDidMount() {}
+  renderMe = () => {
+    const { receiveData } = this.props;
+
+    return receiveData.data.map(res => (
+      <li key={res.id.value}>
+        <img src={res.picture.medium} alt="profile" />
+        Hi my name is{" "}
+        <span style={{ textTransform: "capitalize" }}>
+          {res.name.first}
+          {res.id.value}
+        </span>
+      </li>
+    ));
+  };
   render() {
-    const { fetcherAPI } = this.props;
+    const { fetcherAPI, promiseReducer } = this.props;
+    // const asd = receiveData.data.map(res => console.log(res));
     return (
       <div className="App">
         <DenseAppBar />
@@ -22,19 +37,30 @@ class App extends Component {
         <button type="submit" onClick={fetcherAPI}>
           Hit Me!
         </button>
+        {promiseReducer.isLoading ? "LOADING" : "NOPE"}
+        <ul>{this.renderMe()}</ul>
       </div>
     );
   }
 }
 
+App.defaultProps = {
+  receiveData: []
+};
+
 App.propTypes = {
-  fetcherAPI: PropTypes.func.isRequired
+  fetcherAPI: PropTypes.func.isRequired,
+  receiveData: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  promiseReducer: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
-  const { receiveData, txtQuery } = state;
+  const { receiveData, txtQuery, promiseReducer } = state;
   return {
     receiveData,
+    promiseReducer,
     txtQuery
   };
 };

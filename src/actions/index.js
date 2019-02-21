@@ -3,6 +3,7 @@ import axios from "axios";
 export const ERROR = "ERROR";
 export const RECIEVE_DATA = "RECIEVE_DATA";
 export const FETCH = "FETCH";
+
 export const QUERY = "QUERY";
 
 // export const query = text => ({
